@@ -119,6 +119,22 @@ public class LinkedStack<E> implements ILinkedStack<E>
 		}
 		return s.toString();
 	}
+	
+	/**
+	 * Devuele el objeto en la posicion que ingreso por parametro
+	 * @param Posicion en la lista
+	 */
+	public E seeItem(int pPosicion)
+	{
+		Node<E> temporal = first;
+
+		for(int i = 0; i < pPosicion; i++)
+		{
+			temporal = temporal.getNext();
+		}
+
+		return temporal.getItem();
+	}
 
 	/**
 	 * Crea el iterador para recorrer la lista-pila

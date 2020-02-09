@@ -45,8 +45,10 @@ public class Controller
 			{
 			   case "Opcion1":
 				   int tamanio = modelo.darTamano();
-				   view.printMessage("El tamanio de la listas es: " + tamanio + " \n");    // Imprime el tamanio de la lista enlazad
-		           break;
+				   view.printMessage("El numero total de comparendos es: " + tamanio + " \n");    // Imprime el tamanio de la lista enlazad
+				   view.printMessage("El primer comparendo de la pila es: "); 
+				   view.printMessage(modelo.darDatos(0) + " \n");
+				   break;
 				   
 			   case "Opcion2": 
 				   view.printMessage("Ingrese el Objectid para ver la informacion");

@@ -15,8 +15,9 @@ public class View
 	public void printMenu()
 	{
 		System.out.println("Ingrese la opcion que le interesa saber:");
-		System.out.println("Opcion1: Mostrar la información básica del primer comparendo y del último comparendo en la lista y el total de comparendos en la lista.");
-		System.out.println("Opcion2: Consultar la información básica de un comparendo dado su OBJECTID.");
+		System.out.println("Opcion1: Mostrar el total de comparendos en la pila - cola, la información básica del primer comparendo de la pila y la informacion basica del primer comparendo en la cola.");
+		System.out.println("Opcion2: Procesar la cola resultante para buscar el grupo de comparendos consecutivos (cluster) más grande por su código de INFRACCION.");
+		System.out.println("Opcion3: Procesar la pila resultante para reportar los últimos N comparendos para una INFRACCION dada.");
 		System.out.println("Si quiere finaliza ingrese la cadena: Cerrar");
 	}
 
