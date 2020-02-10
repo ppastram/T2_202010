@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Iterator;
 
 import com.google.gson.Gson;
 
@@ -17,9 +18,14 @@ import model.data_structures.*;
 public class Modelo 
 {
 	/**
-	 * Lista enlazada de tipo Comparendos
+	 * Lista-pila de tipo Comparendos
 	 */
-	private LinkedStack<Comparendo> datos;
+	private LinkedStack<Comparendo> datos1;
+	
+	/**
+	 * Lista-cola de tipo Comparendos
+	 */
+	private LinkedQueue<Comparendo> datos2;
 	
 	/**
 	 * Constructor del modelo del mundo
@@ -28,7 +34,8 @@ public class Modelo
 	{	
 		Gson gson = new Gson();
 		BufferedReader br = null;
-		datos = new LinkedStack<>();
+		datos1 = new LinkedStack<>();
+		datos2 = new LinkedQueue<>();
 		
 		try
 		{
@@ -49,7 +56,8 @@ public class Modelo
 			    double cordenada2 = result.getFeatures().get(i).getGeometry().getCoordinates().get(1);
 			    
 			    Comparendo actual = new Comparendo(objective, fecha_hora, medio_dete, clase_vehi, tipo_servi, infraccion, des_infrac, localidad, cordenada1, cordenada2);
-			    datos.push(actual);
+			    datos1.push(actual);
+			    datos2.enqueue(actual);
 			}
 		}
 		catch(FileNotFoundException e)
@@ -73,24 +81,63 @@ public class Modelo
 	}
 	
 	/**
-	 * Servicio de consulta de numero de elementos presentes en el modelo 
+	 * Servicio de consulta de numero de elementos presentes en el modelo de la pila
 	 * @return numero de elementos presentes en el modelo
 	 */
-	public int darTamano()
+	public int darTamanoPila()
 	{
-		return datos.getSize();
+		return datos1.getSize();
 	}
 	
 	/**
-	 * Metodo que retorna un string con la informacion basica del comparendo de acuerdo con la posicion
-	 * @param pPosicion Posicion del objeto
+	 * Servicio de consulta de numero de elementos presentes en el modelo de la cola
+	 * @return numero de elementos presentes en el modelo
+	 */
+	public int darTamanoCola()
+	{
+		return datos2.getSize();
+	}
+	
+	/**
+	 * Metodo que retorna un string con la informacion basica del comparendo de acuerdo con la posicion de la pila
+	 * @param pPosicion Posicion del objeto en la pila
 	 * @return Retorna cadena de string con la informacion baica del comparendo
 	 */
 	public String darDatosPila(int pPosicion)
 	{
-		String informacion = datos.seeItem(pPosicion).getObjective() + ", \n" + datos.seeItem(pPosicion).getFecha_hora() + ", \n" + datos.seeItem(pPosicion).getClase_vehi() + ", \n" + 
-                             datos.seeItem(pPosicion).getTipo_servi() + ", \n" + datos.seeItem(pPosicion).getInfraccion() + ", \n" + datos.seeItem(pPosicion).getDes_infrac() + ", \n" + 
-                             datos.seeItem(pPosicion).getLocalidad();
+		String informacion = datos1.seeItem(pPosicion).getObjective() + ", \n" + datos1.seeItem(pPosicion).getFecha_hora() + ", \n" + datos1.seeItem(pPosicion).getClase_vehi() + ", \n" + 
+                             datos1.seeItem(pPosicion).getTipo_servi() + ", \n" + datos1.seeItem(pPosicion).getInfraccion() + ", \n" + datos1.seeItem(pPosicion).getDes_infrac() + ", \n" + 
+                             datos1.seeItem(pPosicion).getLocalidad();
         return informacion;
+	}
+	
+	/**
+	 * Metodo que retorna un string con la informacion basica del comparendo de acuerdo con la posicion de la cola
+	 * @param pPosicion Posicion del objeto en la cola
+	 * @return Retorna cadena de string con la informacion baica del comparendo
+	 */
+	public String darDatosCola(int pPosicion)
+	{
+		String informacion = datos2.seeItem(pPosicion).getObjective() + ", \n" + datos2.seeItem(pPosicion).getFecha_hora() + ", \n" + datos2.seeItem(pPosicion).getClase_vehi() + ", \n" + 
+                             datos2.seeItem(pPosicion).getTipo_servi() + ", \n" + datos2.seeItem(pPosicion).getInfraccion() + ", \n" + datos2.seeItem(pPosicion).getDes_infrac() + ", \n" + 
+                             datos2.seeItem(pPosicion).getLocalidad();
+        return informacion;
+	}
+	
+	public String consultarMasComparendos(String pInfraccion)
+	{
+//		LinkedQueue<Comparendo> nueva = new LinkedQueue<>();
+		String info = "";
+		
+		Iterator<Comparendo> it = datos2.iterator();
+		while(it.hasNext())
+		{
+			Comparendo elemento = it.next();
+			if(elemento.getInfraccion().equals(pInfraccion))
+			{
+				
+			}	
+		}
+		return info;
 	}
 }

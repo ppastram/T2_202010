@@ -44,14 +44,20 @@ public class Controller
 			switch(opcion)
 			{
 			   case "Opcion1":
-				   int tamanio = modelo.darTamano();
-				   view.printMessage("El numero total de comparendos es: " + tamanio + " \n");    // Imprime el tamanio de la lista enlazad
+				   int tamanio1 = modelo.darTamanoPila();
+				   int tamanio2 = modelo.darTamanoCola();
+				   view.printMessage("El numero total de comparendos es para la pila: " + tamanio1 + " \n");    // Imprime el tamanio de la pila
+				   view.printMessage("El numero total de comparendos es para la cola: " + tamanio2 + " \n");    // Imprime el tamanio de la cola
 				   view.printMessage("El primer comparendo de la pila es: "); 
 				   view.printMessage(modelo.darDatosPila(0) + " \n");                             // Imprime el elemento en la cabeza de la pila
+				   view.printMessage("El primer comparendo de la cola es: "); 
+				   view.printMessage(modelo.darDatosCola(0) + " \n");
 				   break;
 				   
 			   case "Opcion2": 
-				   view.printMessage("Ingrese el Objectid para ver la informacion");
+				   view.printMessage("Ingrese la infraccion a consultar en la cola: ");
+				   String entrada = lector.next();
+				   view.printMessage(modelo.consultarMasComparendos(entrada) + " \n");
 				   break;
 				   
 			   case "Cerrar":
