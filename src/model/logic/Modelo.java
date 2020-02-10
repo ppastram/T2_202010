@@ -86,7 +86,7 @@ public class Modelo
 	 * @param pPosicion Posicion del objeto
 	 * @return Retorna cadena de string con la informacion baica del comparendo
 	 */
-	public String darDatos(int pPosicion)
+	public String darDatosPila(int pPosicion)
 	{
 		String informacion = datos.seeItem(pPosicion).getObjective() + ", \n" + datos.seeItem(pPosicion).getFecha_hora() + ", \n" + datos.seeItem(pPosicion).getClase_vehi() + ", \n" + 
                              datos.seeItem(pPosicion).getTipo_servi() + ", \n" + datos.seeItem(pPosicion).getInfraccion() + ", \n" + datos.seeItem(pPosicion).getDes_infrac() + ", \n" + 

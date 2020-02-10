@@ -47,7 +47,7 @@ public class Controller
 				   int tamanio = modelo.darTamano();
 				   view.printMessage("El numero total de comparendos es: " + tamanio + " \n");    // Imprime el tamanio de la lista enlazad
 				   view.printMessage("El primer comparendo de la pila es: "); 
-				   view.printMessage(modelo.darDatos(0) + " \n");
+				   view.printMessage(modelo.darDatosPila(0) + " \n");                             // Imprime el elemento en la cabeza de la pila
 				   break;
 				   
 			   case "Opcion2": 

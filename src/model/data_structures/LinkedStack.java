@@ -104,21 +104,6 @@ public class LinkedStack<E> implements ILinkedStack<E>
 		}
 		return first.getItem();
 	}
-
-
-    /**
-     * Devuelve una representación en cadena de esta pila.
-     * Devuelve la secuencia de elementos de la pila en orden LIFO (last-in, first-out)
-     */
-	public String toString() 
-	{
-		StringBuilder s = new StringBuilder();
-		for (E item : this)
-		{
-			s.append(item + " ");
-		}
-		return s.toString();
-	}
 	
 	/**
 	 * Devuele el objeto en la posicion que ingreso por parametro
@@ -136,12 +121,26 @@ public class LinkedStack<E> implements ILinkedStack<E>
 		return temporal.getItem();
 	}
 
+    /**
+     * Devuelve una representación en cadena de esta pila.
+     * Devuelve la secuencia de elementos de la pila en orden LIFO (last-in, first-out)
+     */
+	public String toString() 
+	{
+		StringBuilder s = new StringBuilder();
+		for (E item : this)
+		{
+			s.append(item + " ");
+		}
+		return s.toString();
+	}
+
 	/**
 	 * Crea el iterador para recorrer la lista-pila
 	 */
 	@Override
 	public Iterator<E> iterator() 
 	{
-		return new ListIterator<>(this);
+		return new ListIterator1<>(this);
 	}
 }

@@ -6,12 +6,12 @@ import java.util.Iterator;
  * Obtenido desde: https://www.geeksforgeeks.org/java-implementing-iterator-and-iterable-interface/
  * @param <E> Tipo Generico
  */
-public class ListIterator<E> implements Iterator<E> 
+public class ListIterator1<E> implements Iterator<E> 
 { 
     Node<E> current; 
       
     // initialize pointer to head of the list for iteration 
-    public ListIterator(LinkedStack<E> list) 
+    public ListIterator1(LinkedStack<E> list) 
     { 
         current = list.getFirst(); 
     } 
