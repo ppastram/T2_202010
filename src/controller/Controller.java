@@ -1,7 +1,9 @@
 package controller;
 
+import java.util.Iterator;
 import java.util.Scanner;
 
+import model.logic.Comparendo;
 import model.logic.Modelo;
 import view.View;
 
@@ -57,7 +59,24 @@ public class Controller
 			   case "Opcion2": 
 				   view.printMessage("Ingrese la infraccion a consultar en la cola: ");
 				   String entrada = lector.next();
-				   view.printMessage(modelo.consultarMasComparendos(entrada) + " \n");
+				   Iterator<Comparendo> resultado1 = modelo.consultarMasComparendosConsecutivos(entrada).iterator();
+				   while(resultado1.hasNext())
+				   {
+					   Comparendo elemento = resultado1.next();
+					   view.printMessage(elemento.getInfraccion() + ", " + elemento.getObjective() + ", " + elemento.getFecha_hora() + ", " + elemento.getClase_vehi() + ", " + elemento.getTipo_servi() + ", " + elemento.getLocalidad());
+				   }
+				   break;
+				   
+			   case "Opcion3": 
+				   view.printMessage("Ingrese los n ultimos comparendos a consultar y el tipo de infracción: ");
+				   int entrada1 = lector.nextInt();
+				   String entrada2 = lector.next();
+				   Iterator<Comparendo> resultado2 = modelo.reportarComparendoUlitmosDadoN(entrada1, entrada2).iterator();
+				   while(resultado2.hasNext())
+				   {
+					   Comparendo elemento = resultado2.next();
+					   view.printMessage(elemento.getInfraccion() + ", " + elemento.getObjective() + ", " + elemento.getFecha_hora() + ", " + elemento.getClase_vehi() + ", " + elemento.getTipo_servi() + ", " + elemento.getLocalidad());
+				   }
 				   break;
 				   
 			   case "Cerrar":

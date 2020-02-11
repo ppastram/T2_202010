@@ -21,12 +21,12 @@ public class Modelo
 	 * Lista-pila de tipo Comparendos
 	 */
 	private LinkedStack<Comparendo> datos1;
-	
+
 	/**
 	 * Lista-cola de tipo Comparendos
 	 */
 	private LinkedQueue<Comparendo> datos2;
-	
+
 	/**
 	 * Constructor del modelo del mundo
 	 */
@@ -36,12 +36,12 @@ public class Modelo
 		BufferedReader br = null;
 		datos1 = new LinkedStack<>();
 		datos2 = new LinkedQueue<>();
-		
+
 		try
 		{
 			br = new BufferedReader(new FileReader("./data/comparendos_dei_2018_small.geojson"));
 			Example result = gson.fromJson(br, Example.class);
-	
+
 			for(int  i = 0; i < result.getFeatures().size(); i ++)
 			{
 				int objective = result.getFeatures().get(i).getProperties().getOBJECTID();
@@ -52,12 +52,12 @@ public class Modelo
 				String infraccion = result.getFeatures().get(i).getProperties().getINFRACCION();
 				String des_infrac = result.getFeatures().get(i).getProperties().getDESINFRAC();
 				String localidad = result.getFeatures().get(i).getProperties().getLOCALIDAD();
-			    double cordenada1 = result.getFeatures().get(i).getGeometry().getCoordinates().get(0);
-			    double cordenada2 = result.getFeatures().get(i).getGeometry().getCoordinates().get(1);
-			    
-			    Comparendo actual = new Comparendo(objective, fecha_hora, medio_dete, clase_vehi, tipo_servi, infraccion, des_infrac, localidad, cordenada1, cordenada2);
-			    datos1.push(actual);
-			    datos2.enqueue(actual);
+				double cordenada1 = result.getFeatures().get(i).getGeometry().getCoordinates().get(0);
+				double cordenada2 = result.getFeatures().get(i).getGeometry().getCoordinates().get(1);
+
+				Comparendo actual = new Comparendo(objective, fecha_hora, medio_dete, clase_vehi, tipo_servi, infraccion, des_infrac, localidad, cordenada1, cordenada2);
+				datos1.push(actual);
+				datos2.enqueue(actual);
 			}
 		}
 		catch(FileNotFoundException e)
@@ -79,7 +79,7 @@ public class Modelo
 			}
 		}
 	}
-	
+
 	/**
 	 * Servicio de consulta de numero de elementos presentes en el modelo de la pila
 	 * @return numero de elementos presentes en el modelo
@@ -88,7 +88,7 @@ public class Modelo
 	{
 		return datos1.getSize();
 	}
-	
+
 	/**
 	 * Servicio de consulta de numero de elementos presentes en el modelo de la cola
 	 * @return numero de elementos presentes en el modelo
@@ -97,7 +97,7 @@ public class Modelo
 	{
 		return datos2.getSize();
 	}
-	
+
 	/**
 	 * Metodo que retorna un string con la informacion basica del comparendo de acuerdo con la posicion de la pila
 	 * @param pPosicion Posicion del objeto en la pila
@@ -106,11 +106,11 @@ public class Modelo
 	public String darDatosPila(int pPosicion)
 	{
 		String informacion = datos1.seeItem(pPosicion).getObjective() + ", \n" + datos1.seeItem(pPosicion).getFecha_hora() + ", \n" + datos1.seeItem(pPosicion).getClase_vehi() + ", \n" + 
-                             datos1.seeItem(pPosicion).getTipo_servi() + ", \n" + datos1.seeItem(pPosicion).getInfraccion() + ", \n" + datos1.seeItem(pPosicion).getDes_infrac() + ", \n" + 
-                             datos1.seeItem(pPosicion).getLocalidad();
-        return informacion;
+				datos1.seeItem(pPosicion).getTipo_servi() + ", \n" + datos1.seeItem(pPosicion).getInfraccion() + ", \n" + datos1.seeItem(pPosicion).getDes_infrac() + ", \n" + 
+				datos1.seeItem(pPosicion).getLocalidad();
+		return informacion;
 	}
-	
+
 	/**
 	 * Metodo que retorna un string con la informacion basica del comparendo de acuerdo con la posicion de la cola
 	 * @param pPosicion Posicion del objeto en la cola
@@ -119,25 +119,43 @@ public class Modelo
 	public String darDatosCola(int pPosicion)
 	{
 		String informacion = datos2.seeItem(pPosicion).getObjective() + ", \n" + datos2.seeItem(pPosicion).getFecha_hora() + ", \n" + datos2.seeItem(pPosicion).getClase_vehi() + ", \n" + 
-                             datos2.seeItem(pPosicion).getTipo_servi() + ", \n" + datos2.seeItem(pPosicion).getInfraccion() + ", \n" + datos2.seeItem(pPosicion).getDes_infrac() + ", \n" + 
-                             datos2.seeItem(pPosicion).getLocalidad();
-        return informacion;
+				datos2.seeItem(pPosicion).getTipo_servi() + ", \n" + datos2.seeItem(pPosicion).getInfraccion() + ", \n" + datos2.seeItem(pPosicion).getDes_infrac() + ", \n" + 
+				datos2.seeItem(pPosicion).getLocalidad();
+		return informacion;
 	}
-	
-	public String consultarMasComparendos(String pInfraccion)
+
+	/**
+	 * Procesar la cola resultante para buscar el grupo de comparendos consecutivos (cluster) más grande por su código de INFRACCION.
+	 * @param pInfraccion Infraccion que ingresa por parametro
+	 * @return Retorna una cola con los comparendos resultantes.
+	 */
+	public LinkedQueue<Comparendo> consultarMasComparendosConsecutivos(String pInfraccion)
 	{
-//		LinkedQueue<Comparendo> nueva = new LinkedQueue<>();
-		String info = "";
-		
+		LinkedQueue<Comparendo> comparendosResultantes = new LinkedQueue<>();
+
 		Iterator<Comparendo> it = datos2.iterator();
 		while(it.hasNext())
 		{
 			Comparendo elemento = it.next();
+
 			if(elemento.getInfraccion().equals(pInfraccion))
 			{
-				
-			}	
+				comparendosResultantes.enqueue(elemento);
+			}
 		}
-		return info;
+
+		System.out.println(comparendosResultantes.getSize());
+		return comparendosResultantes;
+	}
+
+	/**
+	 * Procesar la pila resultante para reportar los últimos N comparendos para una INFRACCION dada.
+	 * @param pN Ulrimos n comparendos
+	 * @param pIfraccion Infraccion que ingresa por parametro
+	 * @return Retornar una cola con los comparendos resultantes.
+	 */
+	public LinkedQueue<Comparendo> reportarComparendoUlitmosDadoN(int pN, String pIfraccion) 
+	{
+		return datos2;
 	}
 }
