@@ -156,6 +156,22 @@ public class Modelo
 	 */
 	public LinkedQueue<Comparendo> reportarComparendoUlitmosDadoN(int pN, String pIfraccion) 
 	{
-		return datos2;
+		LinkedQueue<Comparendo> comparendosResultantesUltimosDadoN = new LinkedQueue<>();
+		
+		Iterator<Comparendo> it = datos1.iterator();
+		while(it.hasNext())
+		{
+			Comparendo elemento = it.next();
+			
+			for(int i = datos1.getSize() - pN; i < datos1.getSize(); i++)
+			{
+				if(elemento.getInfraccion().equals(pIfraccion))
+				{
+					datos1.pop();
+					comparendosResultantesUltimosDadoN.enqueue(elemento);
+				}
+			}
+		}
+		return comparendosResultantesUltimosDadoN;
 	}
 }
