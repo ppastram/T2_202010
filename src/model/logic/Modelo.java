@@ -131,21 +131,41 @@ public class Modelo
 	 */
 	public LinkedQueue<Comparendo> consultarMasComparendosConsecutivos(String pInfraccion)
 	{
-		LinkedQueue<Comparendo> comparendosResultantes = new LinkedQueue<>();
-
-		Iterator<Comparendo> it = datos2.iterator();
-		while(it.hasNext())
+		if(datos2.isEmpty())
 		{
-			Comparendo elemento = it.next();
-
-			if(elemento.getInfraccion().equals(pInfraccion))
-			{
-				comparendosResultantes.enqueue(elemento);
-			}
+			return null;
 		}
+		
+		LinkedQueue<Comparendo> cola = null;
+	    LinkedQueue<Comparendo> temporal = new LinkedQueue<Comparendo>();
 
-		System.out.println(comparendosResultantes.getSize());
-		return comparendosResultantes;
+	    int tamanio = 0;
+	    
+	    while(!datos2.isEmpty())
+	    {
+	    	Comparendo elemento = datos2.dequeue();
+	    	
+	    	if(elemento != null)
+	    	{
+	    		if(elemento.getInfraccion().equals(pInfraccion))
+	    		{
+	    			temporal.enqueue(elemento);
+	    		}
+	    		else
+	    		{
+	    			temporal = new LinkedQueue<Comparendo>();
+	    			temporal.enqueue(elemento);
+	    		}
+	    	}
+	    	
+	    	if(temporal.getSize() > tamanio)
+	    	{
+	    		cola = temporal;
+	    		tamanio = temporal.getSize();
+	    	}
+	    }
+	    
+	    return cola;
 	}
 
 	/**

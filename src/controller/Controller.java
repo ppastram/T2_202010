@@ -59,6 +59,7 @@ public class Controller
 			   case "Opcion2": 
 				   view.printMessage("Ingrese la infraccion a consultar en la cola: ");
 				   String entrada = lector.next();
+				   view.printMessage("Los siguiente comparendos de este tipo: " + entrada + "estan consecutivos: ");
 				   Iterator<Comparendo> resultado1 = modelo.consultarMasComparendosConsecutivos(entrada).iterator();
 				   while(resultado1.hasNext())
 				   {
@@ -71,6 +72,7 @@ public class Controller
 				   view.printMessage("Ingrese los n ultimos comparendos a consultar y el tipo de infracción: ");
 				   int entrada1 = lector.nextInt();
 				   String entrada2 = lector.next();
+				   view.printMessage("Los siguientes: " + entrada1 + " ultimos del tipo de infracion: " + entrada2);
 				   Iterator<Comparendo> resultado2 = modelo.reportarComparendoUlitmosDadoN(entrada1, entrada2).iterator();
 				   while(resultado2.hasNext())
 				   {
