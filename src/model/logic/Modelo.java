@@ -129,7 +129,7 @@ public class Modelo
 	 * @param pInfraccion Infraccion que ingresa por parametro
 	 * @return Retorna una cola con los comparendos resultantes.
 	 */
-	public LinkedQueue<Comparendo> consultarMasComparendosConsecutivos(String pInfraccion)
+	public LinkedQueue<Comparendo> consultarMasComparendosConsecutivos()
 	{
 		if(datos2.isEmpty())
 		{
@@ -141,15 +141,23 @@ public class Modelo
 
 	    int tamanio = 0;
 	    
+    	Comparendo elemAnte = null;
+	    Comparendo elemento = datos2.dequeue();
+	    
+	    
 	    while(!datos2.isEmpty())
 	    {
-	    	Comparendo elemento = datos2.dequeue();
+	    	elemAnte = elemento;
+	    	elemento = datos2.dequeue();
 	    	
-	    	if(elemento != null)
+	    	if(elemento != null && elemAnte != null)
 	    	{
-	    		if(elemento.getInfraccion().equals(pInfraccion))
+	    		//System.out.println(elemento.getInfraccion());
+	    		//System.out.println(elemAnte.getInfraccion());
+	    		
+	    		if(elemento.getInfraccion().equals( elemAnte.getInfraccion() ))
 	    		{
-	    			temporal.enqueue(elemento);
+	    			temporal.enqueue(elemAnte);
 	    		}
 	    		else
 	    		{
@@ -179,18 +187,21 @@ public class Modelo
 		LinkedQueue<Comparendo> comparendosResultantesUltimosDadoN = new LinkedQueue<>();
 		
 		Iterator<Comparendo> it = datos1.iterator();
+		int p = 0;
+		
 		while(it.hasNext())
 		{
 			Comparendo elemento = it.next();
 			
-			for(int i = datos1.getSize() - pN; i < datos1.getSize(); i++)
-			{
-				if(elemento.getInfraccion().equals(pIfraccion))
+			//for(int i = datos1.getSize() - pN; i < datos1.getSize(); i++)
+			//{
+				if(elemento.getInfraccion().equals(pIfraccion) && p < pN)
 				{
 					datos1.pop();
 					comparendosResultantesUltimosDadoN.enqueue(elemento);
+					p++;
 				}
-			}
+			//}
 		}
 		return comparendosResultantesUltimosDadoN;
 	}

@@ -48,8 +48,8 @@ public class Controller
 			   case "Opcion1":
 				   int tamanio1 = modelo.darTamanoPila();
 				   int tamanio2 = modelo.darTamanoCola();
-				   view.printMessage("El numero total de comparendos es para la pila: " + tamanio1 + " \n");    // Imprime el tamanio de la pila
-				   view.printMessage("El numero total de comparendos es para la cola: " + tamanio2 + " \n");    // Imprime el tamanio de la cola
+				   view.printMessage("El numero total de comparendos es: " + tamanio1 + " para la pila \n");    // Imprime el tamanio de la pila
+				   view.printMessage("El numero total de comparendos es: " + tamanio2 + " para la cola\n");    // Imprime el tamanio de la cola
 				   view.printMessage("El primer comparendo de la pila es: "); 
 				   view.printMessage(modelo.darDatosPila(0) + " \n");                             // Imprime el elemento en la cabeza de la pila
 				   view.printMessage("El primer comparendo de la cola es: "); 
@@ -57,10 +57,10 @@ public class Controller
 				   break;
 				   
 			   case "Opcion2": 
-				   view.printMessage("Ingrese la infraccion a consultar en la cola: ");
-				   String entrada = lector.next();
-				   view.printMessage("Los siguiente comparendos de este tipo: " + entrada + "estan consecutivos: ");
-				   Iterator<Comparendo> resultado1 = modelo.consultarMasComparendosConsecutivos(entrada).iterator();
+				   //view.printMessage("Ingrese la infraccion a consultar en la cola: ");
+				   //String entrada = lector.next();
+				   view.printMessage("El mayor cluster de comparendos es: ");
+				   Iterator<Comparendo> resultado1 = modelo.consultarMasComparendosConsecutivos().iterator();
 				   while(resultado1.hasNext())
 				   {
 					   Comparendo elemento = resultado1.next();
@@ -69,10 +69,10 @@ public class Controller
 				   break;
 				   
 			   case "Opcion3": 
-				   view.printMessage("Ingrese los n ultimos comparendos a consultar y el tipo de infracción: ");
+				   view.printMessage("Ingrese los ultimos n comparendos a consultar y el tipo de infracción: ");
 				   int entrada1 = lector.nextInt();
 				   String entrada2 = lector.next();
-				   view.printMessage("Los siguientes: " + entrada1 + " ultimos del tipo de infracion: " + entrada2);
+				   view.printMessage("Los últimos " + entrada1 + " (o menos) comparendos tipo " + entrada2 + " son:\n");
 				   Iterator<Comparendo> resultado2 = modelo.reportarComparendoUlitmosDadoN(entrada1, entrada2).iterator();
 				   while(resultado2.hasNext())
 				   {
@@ -82,13 +82,13 @@ public class Controller
 				   break;
 				   
 			   case "Cerrar":
-				   view.printMessage("--------- \n Hasta pronto !! \n---------"); 
+				   view.printMessage("--------- \n ¡Hasta pronto! \n---------"); 
 				   lector.close();
 				   fin = true;
 				   break;
 
 		       default: 
-				   view.printMessage("--------- \n Opcion Invalida !! \n---------");
+				   view.printMessage("--------- \n ¡Opcion Invalida! \n---------");
 				   break;
 		    }
 		}

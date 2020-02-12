@@ -1,4 +1,4 @@
-package test.data_structures;
+package test.model.data_structures;
 
 import static org.junit.jupiter.api.Assertions.*;
 
